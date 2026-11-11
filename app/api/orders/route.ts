@@ -43,10 +43,9 @@ export async function POST(request: Request) {
       const customer = await tx.user.upsert({ where: { phone: customerPhone }, update: { name: customerName }, create: { phone: customerPhone, name: customerName, role: 'CUSTOMER' } });
       const orderItems = items.map((item) => {
         const price = item.type === 'service' ? serviceById.get(item.id)!.price : productById.get(item.id)!.price;
-        return { itemType: item.type === 'service' ? 'SERVICE' as const : 'PRODUCT' as const, quantity: item.quantity, unitPrice: price, lineTotal: Math.round(price * item.quantity * 100) / 100, serviceId: item.type === 'service' ? item.id : null, productId: item.type === 'product' ? item.id : null };
+        return { itemType: item.type === 'service' ? 'SERVICE' : 'PRODUCT', quantity: item.quantity, unitPrice: price, lineTotal: Math.round(price * item.quantity * 100) / 100, serviceId: item.type === 'service' ? item.id : null, productId: item.type === 'product' ? item.id : null };
       });
       const total = Math.round(orderItems.reduce((sum, item) => sum + item.lineTotal, 0) * 100) / 100;
-      const payment = paymentMode === 'CASH_AT_SHOP' ? { provider: 'CASH_AT_SHOP', status: 'PENDING' as const } : { provider: 'RAZORPAY_NOT_CONFIGURED', status: 'PENDING' as const };
       return tx.order.create({
         data: {
           orderNumber: `CC-${randomUUID().slice(0, 8).toUpperCase()}`,
@@ -56,12 +55,12 @@ export async function POST(request: Request) {
           total,
           notes,
           items: { create: orderItems },
-          payments: { create: { provider: payment.provider, method: paymentMode, status: payment.status, amount: total } },
+          payments: { create: { provider: paymentMode === 'CASH_AT_SHOP' ? 'CASH_AT_SHOP' : 'RAZORPAY', method: paymentMode, status: paymentMode === 'CASH_AT_SHOP' ? 'PENDING' : 'PENDING', amount: total } },
         },
         select: { id: true, orderNumber: true, status: true, paymentStatus: true, total: true, createdAt: true },
       });
     });
-    return NextResponse.json({ ok: true, order, message: paymentMode === 'CASH_AT_SHOP' ? 'Order saved. Payment is due at the shop.' : 'Order saved, but online payment is not configured; payment is still pending.' }, { status: 201 });
+    return NextResponse.json({ ok: true, order, message: paymentMode === 'CASH_AT_SHOP' ? 'Order saved. Payment is due at the shop.' : 'Order saved. Payment is pending until the gateway is configured.' }, { status: 201 });
   } catch (error) {
     if (error instanceof Error && error.message === 'STOCK_CHANGED') return NextResponse.json({ ok: false, message: 'Stock changed while checking out. Please refresh your cart.' }, { status: 409 });
     console.error('Order creation failed', error);
