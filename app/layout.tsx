@@ -1,5 +1,15 @@
-export const metadata = { title: "COPYCAT COPIERS | Print. Shop. Pick up.", description: "Order printing and stationery from COPYCAT COPIERS. Collect your order at the shop." };
 import "./globals.css";
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>;
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "COPYCAT COPIERS",
+  description: "Printing and stationery ordering platform with in-shop pickup.",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body className="bg-slate-50 text-slate-900 antialiased">{children}</body>
+    </html>
+  );
 }

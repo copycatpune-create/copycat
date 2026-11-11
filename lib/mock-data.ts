@@ -1,0 +1,95 @@
+export const serviceCatalog = [
+  {
+    id: 'bw-print',
+    name: 'Black & White Printing',
+    type: 'service',
+    category: 'Document Printing',
+    price: 2.5,
+    description: 'Affordable black & white print service for documents and notes.',
+  },
+  {
+    id: 'colour-print',
+    name: 'Colour Printing',
+    type: 'service',
+    category: 'Document Printing',
+    price: 8,
+    description: 'High quality coloured printouts for reports and presentations.',
+  },
+  {
+    id: 'a3-print',
+    name: 'A3 Printing',
+    type: 'service',
+    category: 'Document Printing',
+    price: 15,
+    description: 'Large-format printing for charts, posters and design drafts.',
+  },
+  {
+    id: 'xerox-bw',
+    name: 'Black & White Xerox',
+    type: 'service',
+    category: 'Xerox Services',
+    price: 3,
+    description: 'Fast and crisp black & white photocopy service.',
+  },
+  {
+    id: 'spiral-binding',
+    name: 'Spiral Binding',
+    type: 'service',
+    category: 'Binding Services',
+    price: 40,
+    description: 'Durable binding for projects, notes and training documents.',
+  },
+  {
+    id: 'lamination',
+    name: 'Lamination',
+    type: 'service',
+    category: 'Binding Services',
+    price: 20,
+    description: 'Protect certificates, IDs, and presentation sheets.',
+  },
+  {
+    id: 'a4-notepad',
+    name: 'A4 Notepad',
+    type: 'product',
+    category: 'Stationery',
+    price: 65,
+    description: 'Premium ruled notebook for daily writing and planning.',
+  },
+  {
+    id: 'ball-pen',
+    name: 'Ball Pen Pack',
+    type: 'product',
+    category: 'Stationery',
+    price: 120,
+    description: 'Smooth writing pens for office, school and personal use.',
+  },
+  {
+    id: 'file-folder',
+    name: 'File Folder',
+    type: 'product',
+    category: 'Stationery',
+    price: 35,
+    description: 'Organise documents neatly with strong office folders.',
+  },
+  {
+    id: 'register',
+    name: 'Register',
+    type: 'product',
+    category: 'Stationery',
+    price: 140,
+    description: 'Classic register with quality pages for everyday use.',
+  },
+];
+
+export const sampleOrders = [
+  { id: 'ord-1001', orderNumber: 'CC-1001', status: 'PAYMENT_SUCCESSFUL', paymentStatus: 'SUCCESS', total: 245 },
+  { id: 'ord-1002', orderNumber: 'CC-1002', status: 'PROCESSING', paymentStatus: 'SUCCESS', total: 520 },
+  { id: 'ord-1003', orderNumber: 'CC-1003', status: 'READY_FOR_PICKUP', paymentStatus: 'SUCCESS', total: 320 },
+];
+
+export const salesSummary = {
+  totalSales: 68920,
+  ordersToday: 16,
+  readyPickup: 4,
+  pendingPayments: 8500,
+};
