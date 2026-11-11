@@ -1,0 +1,11 @@
+import Link from "next/link";
+import { ArrowLeft, FileUp, Package, Printer, ShoppingCart } from "lucide-react";
+
+const groups = [
+  { title: "Document printing", icon: Printer, items: ["Black & white", "Colour printing", "Single / double-sided", "A4, A3 & legal"] },
+  { title: "Xerox & finishing", icon: FileUp, items: ["B&W and colour Xerox", "Scanning", "Spiral binding", "Lamination"] },
+  { title: "Stationery", icon: Package, items: ["Notebooks & registers", "Pens, pencils & art", "Files & folders", "Paper products"] },
+];
+export default function CustomerPage() {
+  return <main className="min-h-screen px-5 py-8"><div className="mx-auto max-w-6xl"><Link href="/" className="inline-flex items-center gap-2 text-sm font-bold text-slate-500"><ArrowLeft size={16}/> Back home</Link><div className="mt-8 flex flex-wrap items-end justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[.2em] text-orange">Customer portal</p><h1 className="mt-2 text-4xl font-black">What can we print for you?</h1><p className="mt-3 max-w-xl text-slate-600">Choose a service or browse stationery. Every order is collected in person at our shop.</p></div><button className="rounded-full bg-ink px-5 py-3 text-sm font-bold text-white"><ShoppingCart className="mr-2 inline" size={17}/>Cart <span className="ml-2 rounded-full bg-white/15 px-2 py-1">0</span></button></div><div className="mt-9 grid gap-5 md:grid-cols-3">{groups.map(({title,icon:Icon,items})=><section className="rounded-2xl border border-slate-100 bg-white p-6 shadow-card" key={title}><span className="grid h-12 w-12 place-items-center rounded-xl bg-orange/10 text-orange"><Icon/></span><h2 className="mt-5 text-xl font-black">{title}</h2><ul className="mt-4 space-y-3 text-sm text-slate-600">{items.map(i=><li key={i} className="flex gap-2"><span className="text-orange">•</span>{i}</li>)}</ul><button className="mt-6 w-full rounded-xl bg-ink px-4 py-3 text-sm font-bold text-white">Browse {title.toLowerCase()}</button></section>)}</div><div className="mt-8 rounded-2xl border border-orange/20 bg-orange/5 p-5 text-sm"><b>Pickup only:</b> We do not offer delivery. When your order is ready, you’ll receive a collection code to show at COPYCAT COPIERS.</div></div></main>;
+}
